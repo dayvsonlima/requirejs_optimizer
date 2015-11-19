@@ -15,7 +15,7 @@ module RequirejsOptimizer
       end
 
       def digestify_file(path)
-        digest = Rails.application.assets.file_digest(path).hexdigest
+        digest = Digest::SHA1.hexdigest(Rails.application.assets.file_digest(path))
         new_path = path.gsub(/\.([^\.]*)$/) { "-#{digest}.#{$1}" }
         FileUtils.cp(path, new_path)
       end
